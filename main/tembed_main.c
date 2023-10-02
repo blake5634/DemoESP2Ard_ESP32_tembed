@@ -42,12 +42,12 @@
 //  init serial port
 //
 
-
+/*
 #define PIN_RX 16
 #define PIN_TX 17
 #define BUF_SIZE (int) (ESP32Ard_max_packet_size * 2)
 
-QueueHandle_t uart_queue; // RTOS queue for UART*/
+QueueHandle_t uart_queue; // RTOS queue for UART
 
 uart_config_t* uartConfig;   //  keep config around
 int pin_rcv = ESP_PIN_RX;
@@ -76,7 +76,7 @@ void EA_init_serial(int rcv, int tx){
     ESP_ERROR_CHECK(uart_set_pin(UART_NUM_2, PIN_TX, PIN_RX, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
     ESP_LOGI(TAG,"ESP serial port 2 initialized");
     }
-
+*/
 
 
 

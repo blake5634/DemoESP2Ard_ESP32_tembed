@@ -49,7 +49,7 @@ int EA_write(){
 #include "driver/uart.h"
 #include "soc/uart_struct.h"
 
-/*
+
 #define PIN_RX 16
 #define PIN_TX 17
 #define BUF_SIZE (int) (ESP32Ard_max_packet_size * 2)
@@ -62,28 +62,29 @@ int pin_tx  = PIN_TX;
 
 // ESP32_HW_SERIAL
 void EA_init_serial(int rcv, int tx){
+
     uart_config_t uart_config = {
         .baud_rate = 9600,
         .data_bits = UART_DATA_8_BITS,
         .parity = UART_PARITY_DISABLE,
         .stop_bits = UART_STOP_BITS_1,
         .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,    //UART_HW_FLOWCTRL_CTS_RTS,
-        .rx_flow_ctrl_thresh = 122
+        .rx_flow_ctrl_thresh = 122,
     };
-    uartConfig = &uart_config;
-    pin_rcv = rcv;
-    pin_tx  = tx;
-
-    //  create RTOS queue for serial data
-    xQueueCreate( ESP32Ard_max_packet_size*2,   1 );
 
     //Install UART driver (we don't need an event queue here)
-    ESP_ERROR_CHECK(uart_driver_install(ESP_UART_NUM, BUF_SIZE * 2, BUF_SIZE * 2, 10, &uart_queue, 0));
-    ESP_ERROR_CHECK(uart_param_config(ESP_UART_NUM, uartConfig));
-    ESP_ERROR_CHECK(uart_set_pin(ESP_UART_NUM, pin_rcv, pin_tx, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
+    //In this example we don't even use a buffer for sending data.
+//     xQueueCreate( UBaseType_t uxQueueLength, UBaseType_t uxItemSize );
+//     uart_queue = xQueueCreate(     100   ,   1 );
+    xQueueCreate(     100   ,   1 ); // ?  no result stored???
+
+    ESP_ERROR_CHECK(uart_driver_install(UART_NUM_2, BUF_SIZE * 2, BUF_SIZE * 2, 10, &uart_queue, 0));
+    ESP_ERROR_CHECK(uart_param_config(UART_NUM_2, &uart_config));
+    ESP_ERROR_CHECK(uart_set_pin(UART_NUM_2, PIN_TX, PIN_RX, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
+    ESP_LOGI(TAG,"ESP serial port 2 initialized");
     }
 
-*/
+
 
 // ESP32_HW_SERIAL
 int EA_available(){
