@@ -42,43 +42,6 @@
 //  init serial port
 //
 
-/*
-#define PIN_RX 16
-#define PIN_TX 17
-#define BUF_SIZE (int) (ESP32Ard_max_packet_size * 2)
-
-QueueHandle_t uart_queue; // RTOS queue for UART
-
-uart_config_t* uartConfig;   //  keep config around
-int pin_rcv = ESP_PIN_RX;
-int pin_tx  = ESP_PIN_TX;
-
-// ESP32_HW_SERIAL
-void EA_init_serial(int rcv, int tx){
-
-    uart_config_t uart_config = {
-        .baud_rate = 9600,
-        .data_bits = UART_DATA_8_BITS,
-        .parity = UART_PARITY_DISABLE,
-        .stop_bits = UART_STOP_BITS_1,
-        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,    //UART_HW_FLOWCTRL_CTS_RTS,
-        .rx_flow_ctrl_thresh = 122,
-    };
-
-    //Install UART driver (we don't need an event queue here)
-    //In this example we don't even use a buffer for sending data.
-//     xQueueCreate( UBaseType_t uxQueueLength, UBaseType_t uxItemSize );
-//     uart_queue = xQueueCreate(     100   ,   1 );
-    xQueueCreate(     100   ,   1 ); // ?  no result stored???
-
-    ESP_ERROR_CHECK(uart_driver_install(UART_NUM_2, BUF_SIZE * 2, BUF_SIZE * 2, 10, &uart_queue, 0));
-    ESP_ERROR_CHECK(uart_param_config(UART_NUM_2, &uart_config));
-    ESP_ERROR_CHECK(uart_set_pin(UART_NUM_2, PIN_TX, PIN_RX, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
-    ESP_LOGI(TAG,"ESP serial port 2 initialized");
-    }
-*/
-
-
 
 static void send_to_Arduino(int h, int m){
 #define PKT_LEN  7
@@ -306,21 +269,22 @@ static void button_press_down_cb(void *arg, void *data) {
        lv_obj_remove_style(currentFocus, &l_styleWFocusClicked, LV_PART_MAIN);
        lv_obj_add_style(currentFocus,  &l_styleWFocusNext, LV_PART_MAIN);
 
-       /*
-       char pkt[ESP32Ard_max_packet_size]={'\0'};
-       char payld[2] = {'\0'};
-       payld[0] = (byte) start_hour;
-       payld[1] = (byte) start_min;
-       ESP_LOGI(TAG,"building and sending packet");
-       int pktL = EA_pkt_build(pkt,2, payld);
-       EA_write_pkt_serial(pkt,pktL);
-//        char msg[50]={'\0'};
-//        sprintf(msg,"packet length: %d",pktL);
-       ESP_LOGI(TAG,"packet length: %d",pktL);
-//        EA_log(msg);
-       */
-       send_to_Arduino(start_hour, start_min);
-       ESP_LOGI(TAG,"sent hour/min to Arduino");
+       if (currentFocus==SetTime){
+           // we also send new time on exit from button level
+            char pkt[ESP32Ard_max_packet_size]={'\0'};
+            char payld[2] = {'\0'}; // for this application, sending hour & min
+            payld[0] = (byte) start_hour;
+            payld[1] = (byte) start_min;
+            ESP_LOGI(TAG,"building and sending packet");
+            int pktL = EA_pkt_build(pkt, 2, payld);  // 2 = payload length
+            ESP_LOGI(TAG," built a packet of length: %d  ",pktL);
+
+            EA_write_pkt_serial(pkt,pktL);
+
+        //        send_to_Arduino(start_hour, start_min);
+
+            ESP_LOGI(TAG,"sent hour/min to Arduino (the NEW way)");
+       }
     }
     else if (level == LEVEL_TOP){
         /*

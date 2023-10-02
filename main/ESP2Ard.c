@@ -107,6 +107,7 @@ char EA_read(){
 int EA_write_pkt_serial(char buf[], int len){
   int code = EA_test_packet(buf);
   if (code == ESP32Ard_packet_check_OK){
+    EA_log("packet checked out.. sending");
     uart_write_bytes(ESP_UART_NUM, &buf, len);
     return len;   //TODO: implement arduino send
   }

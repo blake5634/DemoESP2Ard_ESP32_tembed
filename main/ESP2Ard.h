@@ -46,13 +46,14 @@
 #define ESP32Ard_timeout_delay_ms        50
 #define ESP2Ard_BaudRate               9600
 #define ESP2Ard_OVERHEAD_BYTES            5  //len(packet) - len(payload)
+#define ESP2Ard_max_payload_size  ESP32Ard_max_packet_size -  ESP2Ard_OVERHEAD_BYTES
 
 //
 //  >>> ESP32, configure serial params here
 //
 #define ESP_PIN_RX             2
 #define ESP_PIN_TX             3
-#define ESP_UART_NUM    UART_NUM_2
+#define ESP_UART_NUM    UART_NUM_2  //UART_NUM_2 from driver/uart.h
 
 #ifdef ARDUINO_PLATFORM
 
