@@ -280,8 +280,8 @@ static void button_press_down_cb(void *arg, void *data) {
             EA_dump_packet_bytes(pkt);
             ESP_LOGI(TAG," built a packet of length: %d  ",pktL);
 
-            send_to_Arduino(start_hour, start_min);
-//             EA_write_pkt_serial(pkt,pktL);
+//             send_to_Arduino(start_hour, start_min);
+            EA_write_pkt_serial(pkt,pktL);
 
         //        send_to_Arduino(start_hour, start_min);
 
