@@ -64,7 +64,7 @@ int pin_tx  = PIN_TX;
 void EA_init_serial(int rcv, int tx){
 
     uart_config_t uart_config = {
-        .baud_rate = 9600,
+        .baud_rate = ESP2Ard_BaudRate,
         .data_bits = UART_DATA_8_BITS,
         .parity = UART_PARITY_DISABLE,
         .stop_bits = UART_STOP_BITS_1,
@@ -169,17 +169,17 @@ int EA_get_packet_serial(char buf[]){
 }
 
 // build a packet given a payload
-int EA_pkt_build(char* pkt,int pll, char* payload){
+int EA_pkt_build(char* pkt, int payload_len, char* payload){
   pkt[0] = 0xFF;  // packet header0
   pkt[1] = 0x00;  // packet header1
-  if (pll > 255) {
+  if (payload_len > 255) {
     EA_log("payload must be 255 bytes or less");
     while(1) EA_delay_ms(2000);  //freeze here.
   }
-  pkt[2] = (char) pll; // payload byte count
+  pkt[2] = (char) payload_len; // payload byte count
   byte cksum = 0;
   int end_of_payload = 3;
-  for (int i=0;i<pll;i++){ // copy payload into packet
+  for (int i=0;i<payload_len;i++){ // copy payload into packet
     pkt[3+i] = payload[i];
     cksum += payload[i];
     end_of_payload++;
@@ -190,10 +190,36 @@ int EA_pkt_build(char* pkt,int pll, char* payload){
     }
   pkt[end_of_payload] = cksum;
   pkt[end_of_payload+1] = '\n';  // end of packet flag
-  int pktLen = pll + ESP2Ard_OVERHEAD_BYTES;
+  int pktLen = payload_len + ESP2Ard_OVERHEAD_BYTES;
   return pktLen; // total pkt length
   }
 
+void EA_dump_packet_bytes(char* pkt){
+    // print it out raw for user
+#ifdef ARDUINO_PLATFORM
+    Serial.println(">> packet bytes (hex): ");
+    Serial.println("-------");
+    for (int i=0;;i++){
+      Serial.print(" [");
+      Serial.print( (unsigned char) pkt[i], HEX);
+      Serial.print("] ");
+      if(pkt[i] ==  '\n') break;
+      if(i>ESP32Ard_max_packet_size) break;
+      }
+    Serial.println("");
+    Serial.println("-------");
+#endif
+#ifdef ESP32_IDF_PLATFORM
+    ESP_LOGI(TAG,">> packet bytes (hex): ");
+    ESP_LOGI(TAG,"--------");
+    for (int i=0;;i++){
+      ESP_LOGI(TAG,"%2d [0x%02x]",i,pkt[i]);
+      if(pkt[i] ==  '\n') break;
+      if(i>ESP32Ard_max_packet_size) break;
+      }
+    ESP_LOGI(TAG,"-------");
+#endif
+}
 //
 //  log method for functions that work on all platforms
 //

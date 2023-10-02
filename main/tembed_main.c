@@ -277,6 +277,7 @@ static void button_press_down_cb(void *arg, void *data) {
             payld[1] = (byte) start_min;
             ESP_LOGI(TAG,"building and sending packet");
             int pktL = EA_pkt_build(pkt, 2, payld);  // 2 = payload length
+            EA_dump_packet_bytes(pkt);
             ESP_LOGI(TAG," built a packet of length: %d  ",pktL);
 
             EA_write_pkt_serial(pkt,pktL);

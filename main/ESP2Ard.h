@@ -115,3 +115,4 @@ int  EA_test_packet(char pkt[]);
 int  EA_pkt_build(char* pkt,int pll, char* payload);
 int  EA_write_pkt_serial(char pkt[], int len);
 void EA_init_serial(int rcv, int tx);
+void EA_dump_packet_bytes(char *packet);
