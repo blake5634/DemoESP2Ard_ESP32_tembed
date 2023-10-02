@@ -96,15 +96,15 @@ int EA_available(){
 // ESP32_HW_SERIAL
 //  read one byte if available.
 char EA_read(){
-  char buf[3]={'\0'};
+    EA_msg_byte buf[3]={'\0'};
 #define NUM_BYTES 1 // for compatibility w/ Arduino code
-    int n =   uart_read_bytes(ESP_UART_NUM, buf, NUM_BYTES, pdMS_TO_TICKS(ESP32Ard_timeout_delay_ms));
+    int n =  uart_read_bytes(ESP_UART_NUM, buf, NUM_BYTES, pdMS_TO_TICKS(ESP32Ard_timeout_delay_ms));
     if (n< 0) n=0;
     return n;
-     }
+    }
 
 // ESP32_HW_SERIAL
-int EA_write_pkt_serial(char buf[], int len){
+int EA_write_pkt_serial(EA_msg_byte* buf, int len){
   int code = EA_test_packet(buf);
   if (code == ESP32Ard_packet_check_OK){
     EA_log("packet checked out.. sending");
@@ -135,7 +135,7 @@ void EA_delay_ms(int dms){
 #endif
 }
 
-int EA_get_packet_serial(char buf[]){
+int EA_get_packet_serial(EA_msg_byte* buf){
   int pidx = 0;
   pidx = 0;
   int timeoutms = ESP32Ard_timeout_delay_ms;
@@ -151,7 +151,7 @@ int EA_get_packet_serial(char buf[]){
         Serial.print(">> ");
         Serial.print(pidx);
         Serial.print("  ");
-        Serial.print((unsigned char) buf[pidx], HEX);
+        Serial.print((EA_msg_byte) buf[pidx], HEX);
         Serial.println("");
 #endif
 #endif
@@ -169,7 +169,7 @@ int EA_get_packet_serial(char buf[]){
 }
 
 // build a packet given a payload
-int EA_pkt_build(char* pkt, int payload_len, char* payload){
+int EA_pkt_build(EA_msg_byte* pkt, int payload_len, EA_msg_byte* payload){
   pkt[0] = 0xFF;  // packet header0
   pkt[1] = 0x00;  // packet header1
   if (payload_len > 255) {
@@ -194,14 +194,14 @@ int EA_pkt_build(char* pkt, int payload_len, char* payload){
   return pktLen; // total pkt length
   }
 
-void EA_dump_packet_bytes(char* pkt){
+void EA_dump_packet_bytes(EA_msg_byte* pkt){
     // print it out raw for user
 #ifdef ARDUINO_PLATFORM
     Serial.println(">> packet bytes (hex): ");
     Serial.println("-------");
     for (int i=0;;i++){
       Serial.print(" [");
-      Serial.print( (unsigned char) pkt[i], HEX);
+      Serial.print( (EA_msg_byte) pkt[i], HEX);
       Serial.print("] ");
       if(pkt[i] ==  '\n') break;
       if(i>ESP32Ard_max_packet_size) break;
@@ -232,7 +232,7 @@ void EA_log(const char* msg){
 #endif
 }
 
-int EA_test_packet(char pkt[]){
+int EA_test_packet(EA_msg_byte* pkt){
 #ifdef ARDUINO_PLATFORM
 #ifdef ESP2Ard_DEBUG
   Serial.println(" .. test a packet ...");

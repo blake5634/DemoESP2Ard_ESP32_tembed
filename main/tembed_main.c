@@ -45,7 +45,7 @@
 
 static void send_to_Arduino(int h, int m){
 #define PKT_LEN  7
-    unsigned char pkt[PKT_LEN];
+    EA_msg_byte pkt[PKT_LEN];
     pkt[0] = 0xFF;
     pkt[1] = 0x00;
     pkt[2] = 2;
@@ -271,10 +271,10 @@ static void button_press_down_cb(void *arg, void *data) {
 
        if (currentFocus==SetTime){
            // we also send new time on exit from button level
-            char pkt[ESP32Ard_max_packet_size]={'\0'};
-            char payld[2] = {'\0'}; // for this application, sending hour & min
-            payld[0] = (byte) start_hour;
-            payld[1] = (byte) start_min;
+            EA_msg_byte pkt[ESP32Ard_max_packet_size]={'\0'};
+            EA_msg_byte payld[2] = {'\0'}; // for this application, sending hour & min
+            payld[0] = (EA_msg_byte) start_hour;
+            payld[1] = (EA_msg_byte) start_min;
             ESP_LOGI(TAG,"building and sending packet");
             int pktL = EA_pkt_build(pkt, 2, payld);  // 2 = payload length
             EA_dump_packet_bytes(pkt);

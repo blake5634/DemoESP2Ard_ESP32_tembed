@@ -85,6 +85,7 @@
 #define TAG "ESP2Ard message:"  // used for logging
 
 typedef   unsigned char  byte;  // used w/ arduino just in case
+typedef   unsigned char  EA_msg_byte;
 
 #endif  // ESP32_IDF_PLATFORM
 
@@ -109,10 +110,10 @@ void EA_log(const char* msg);
 int  EA_available();
 void EA_delay_ms(int dms);
 char EA_read();
-char EA_write_buffer(char buf[], int len);
-int  EA_get_packet_serial(char buf[]);
-int  EA_test_packet(char pkt[]); 
-int  EA_pkt_build(char* pkt,int pll, char* payload);
-int  EA_write_pkt_serial(char pkt[], int len);
+char EA_write_buffer(EA_msg_byte* buf, int len);
+int  EA_get_packet_serial(EA_msg_byte* buf);
+int  EA_test_packet(EA_msg_byte* pkt);
+int  EA_pkt_build(EA_msg_byte* pkt,int pll, EA_msg_byte* payload);
+int  EA_write_pkt_serial(EA_msg_byte* pkt, int len);
 void EA_init_serial(int rcv, int tx);
-void EA_dump_packet_bytes(char *packet);
+void EA_dump_packet_bytes(EA_msg_byte *pkt);
