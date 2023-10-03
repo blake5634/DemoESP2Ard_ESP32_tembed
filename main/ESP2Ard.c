@@ -1,3 +1,12 @@
+/*
+ *  ESP32 to Arduino Communication Package
+ *      Blake Hannaford   10/23
+ * Note:
+ *    for Arduino file must be named ESP2Ard.cpp
+ *    for ESP IDF environment file must be named ESP2Ard.c
+ *    ... BUT the file can be identical -- this file
+ */
+
 #include "ESP2Ard.h"
 
 //
@@ -49,7 +58,6 @@ int EA_write(){
 #include "driver/uart.h"
 #include "soc/uart_struct.h"
 
-
 #define PIN_RX 16
 #define PIN_TX 17
 #define BUF_SIZE (int) (ESP32Ard_max_packet_size * 2)
@@ -60,9 +68,9 @@ uart_config_t* uartConfig;   //  keep config around
 int pin_rcv = PIN_RX;
 int pin_tx  = PIN_TX;
 
+
 // ESP32_HW_SERIAL
 void EA_init_serial(int rcv, int tx){
-
     uart_config_t uart_config = {
         .baud_rate = ESP2Ard_BaudRate,
         .data_bits = UART_DATA_8_BITS,
@@ -71,19 +79,18 @@ void EA_init_serial(int rcv, int tx){
         .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,    //UART_HW_FLOWCTRL_CTS_RTS,
         .rx_flow_ctrl_thresh = 122,
     };
+    uartConfig = &uart_config;
+    pin_rcv = rcv;
+    pin_tx  = tx;
 
-    //Install UART driver (we don't need an event queue here)
-    //In this example we don't even use a buffer for sending data.
-//     xQueueCreate( UBaseType_t uxQueueLength, UBaseType_t uxItemSize );
-//     uart_queue = xQueueCreate(     100   ,   1 );
-    xQueueCreate(     100   ,   1 ); // ?  no result stored???
+    //  create RTOS queue for serial data
+    xQueueCreate( ESP32Ard_max_packet_size*2,   1 );
 
     ESP_ERROR_CHECK(uart_driver_install(UART_NUM_2, BUF_SIZE * 2, BUF_SIZE * 2, 10, &uart_queue, 0));
     ESP_ERROR_CHECK(uart_param_config(UART_NUM_2, &uart_config));
     ESP_ERROR_CHECK(uart_set_pin(UART_NUM_2, PIN_TX, PIN_RX, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
     ESP_LOGI(TAG,"ESP serial port 2 initialized");
     }
-
 
 
 // ESP32_HW_SERIAL

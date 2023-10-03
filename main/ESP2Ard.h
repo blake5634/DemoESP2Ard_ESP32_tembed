@@ -1,5 +1,5 @@
 /*
- *    ESP2Ard.c :
+ *    ESP2Ard.h :
  *
  *          ESP32 to Arduino serial port (UART) communication
  *
@@ -20,7 +20,7 @@
  */
 
 //  Debugging?
-//#define ESP2Ard_DEBUG   1
+#define ESP2Ard_DEBUG   1
 
 
 /////////////////////////  Configuration Zone ///////////////////////////////////////////
@@ -56,19 +56,15 @@
 #define ESP_UART_NUM    UART_NUM_2  //UART_NUM_2 from driver/uart.h
 
 #ifdef ARDUINO_PLATFORM
-
-//
-//  >>>Arduino, configure serial params here:
-//
-
 //
 //   Arduino pin setup
 #define ARD_PIN_RX   2
 #define ARD_PIN_TX   3
 
-//  Serial port type
+//  Arduino Serial port type
 #define ARDUINO_SW_SERIAL
 //#define ARDUINO_HW_SERIAL
+
 #endif // ARDUINO_PLATFORM
 
 /////////////////////////////////  End of Configuration Zone ////////////////////////////
@@ -89,6 +85,9 @@ typedef   unsigned char  EA_msg_byte;
 
 #endif  // ESP32_IDF_PLATFORM
 
+#ifdef ARDUINO_PLATFORM
+typedef   byte  EA_msg_byte;
+#endif
 //
 // defines for all platforms and ports:
 //
