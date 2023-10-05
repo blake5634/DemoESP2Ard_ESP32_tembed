@@ -4,6 +4,8 @@
 
 [DemoEsp2Ard_ESP32_tembed](https://github.com/blake5634/DemoESP2Ard_ESP32_tembed) (this repo) is a demo of ESP2Ard which has been developed for the [Lilygo T-embed](https://www.lilygo.cc/products/t-embed) ESP32-based user I/O kit. I'm aiming for a nice way to add a UI for configuring an Arduino app without reflashing.
 
+   ![T-embed by LilyGo](https://github.com/blake5634/DemoESP2Ard_ESP32_tembed/blob/main/LilyGoTembed.png?raw=true)
+
 This code is set up to build on IDF. IDF is a professional grade tool chain for building and flashing ESP32s.   As of 10/23 ESP2Ard  does not yet support ESP32 on the Arduino IDE.
 
 Here is a linux-oriented step-by-step for getting this to run.
