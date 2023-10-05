@@ -41,6 +41,13 @@ Here is a linux-oriented step-by-step for getting this to run.
 
 #### THIS IS WHEN THE SERIAL DATA IS SENT OUT ON YOUR PORT (the new time value is sent)
 
+##### Suggested hardware setup (works for me).
+
+   - soldered 20-AWG wires into pin holes 16, 17 and GND on the T-embed (see [pinout](https://github.com/Xinyuan-LilyGO/T-Embed/blob/main/image/T-Embed1.png))
+   - plug them in to pins 2,3,GND respectively on Arduino Uno.
+
+   ![Wiring Diagram](https://github.com/blake5634/DemoESP2Ard_ESP32_tembed/blob/main/TestSetupESP2Ard.png?raw=true)
+
 #### Note on naming:
 
 ##### Code files ESP2Ard.c / ESP2Ard.cpp
