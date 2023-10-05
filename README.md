@@ -41,16 +41,7 @@ Here is a linux-oriented step-by-step for getting this to run.
 
 #### THIS IS WHEN THE SERIAL DATA IS SENT OUT ON YOUR PORT (the new time value is sent)
 
-##### Suggested hardware setup (works for me).
-
-   - soldered 20-AWG wires into pin holes 16, 17 and GND on the T-embed (see [pinout](https://github.com/Xinyuan-LilyGO/T-Embed/blob/main/image/T-Embed1.png))
-   - plug them in to pins 2,3,GND respectively on Arduino Uno.
-
-##### The [Esp2Ard](https://github.com/blake5634/ESP2Ard) repo includes a .ino file to run on the Arduino for receiving this data and echoing it on the USB back to your PC.
-
-
 #### Note on naming:
 
 ##### Code files ESP2Ard.c / ESP2Ard.cpp
 You must use the ".c" name for building in ESP32 IDF environment and the ".cpp" name for building in the Arduino environment (at least for software serial).
-
