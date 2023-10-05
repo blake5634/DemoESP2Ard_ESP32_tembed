@@ -12,7 +12,7 @@ Here is a linux-oriented step-by-step for getting this to run.
 
 2) First install ESP-IDF using [these instructions from Espressif](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/).
 
-3) Follow their documentation and build, flash, and test the "hello world" example.  This will make sure you get the details such as correct USB tty  device for uploading code to ESP32. 1
+3) Follow their documentation and build, flash, and test the "hello world" example.  This will make sure you get the details such as correct USB tty  device for uploading code to ESP32.
 
 4) Then, navigate to the [example](https://github.com/Xinyuan-LilyGO/T-Embed/tree/main/example/esp-idf-v5.0) of an `idf.py` project which includes nice graphics and UI elements.
 
