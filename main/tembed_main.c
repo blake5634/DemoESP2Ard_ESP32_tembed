@@ -32,40 +32,6 @@
 //   set up the ESP2Ard serial coms library
 #include "ESP2Ard.h"
 
-
-
-//////////////////////////////////////////  START TEST INSERTION  AREA /////////////////////////////////////
-
-
-
-//
-//  init serial port
-//
-
-
-static void send_to_Arduino(int h, int m){
-#define PKT_LEN  7
-    EA_msg_byte pkt[PKT_LEN];
-    pkt[0] = 0xFF;
-    pkt[1] = 0x00;
-    pkt[2] = 2;
-    pkt[3] = (unsigned char) h;
-    pkt[4] = (unsigned char) m;
-    pkt[5] = (unsigned char) h+m;  // checksum
-    pkt[6] = '\n'; // also 0xA
-    ESP_LOGI(TAG, " ----   sending bytes to UART");
-    uart_write_bytes(UART_NUM_2, &pkt, PKT_LEN);
-}
-
-
-//////////////////////////////////////////  End TEST INSERTION  AREA /////////////////////////////////////
-
-
-
-
-
-
-
 // Set the number of LEDs to control.
 const uint16_t ledCount = CONFIG_APA102_LED_COUNT;
 
