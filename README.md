@@ -12,21 +12,21 @@ Here is a linux-oriented step-by-step for getting this to run.
 
 2) First install ESP-IDF using [these instructions from Espressif](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/).
 
-3) Follow their documentation and build, flash, and test the "hello world" example.
+3) Follow their documentation and build, flash, and test the "hello world" example.  This will make sure you get the details such as correct USB tty  device for uploading code to ESP32. 1
 
 4) Then, navigate to the [example](https://github.com/Xinyuan-LilyGO/T-Embed/tree/main/example/esp-idf-v5.0) of an `idf.py` project which includes nice graphics and UI elements.
 
 5) Get that example (esp-idf-v5.0) working on your T-embed hardware (see AliExpress or Amazon). Observe UI elements change on its screen when you move the scroll wheel etc.
 
-6) Now navigate to your clone of this repo.
+6) Now navigate to your clone of this repo.   ESP2Ard is already included but may not be the latest version.  The next two steps might not be needed but it would be better to get the latest version:
 
 7) go into `main` and clone [Esp2Ard](https://github.com/blake5634/ESP2Ard).
 
 8) Copy `ESP2Ard.c` and `ESP2Ard.h` back up in to `main` (do not copy the `.cpp` version per note below).
 
-9) go back to the project level (`DemoEsp2Ard_ESP32_tembed`) and initialize the idf.py environment with `>get_idf` (I find you have to do this again sometimes if your computer goes to sleep and you wake it up).
+9) go back to the project level (`DemoEsp2Ard_ESP32_tembed`) and initialize the idf.py environment with `>get_idf` (I find you have to do this again sometimes if your computer goes to sleep and you wake it up).  Probably also a good idea to do `>idf.py fullclean` to start fresh.
 
-7) try to build it!  (in case of build problems see Espressif's documentation and ask ChatGPT).
+7) try to build it! (`> idf.py build`). In case of build problems see Espressif's documentation and ask ChatGPT.
 
 8) try to flash it into your T-embed.
 
