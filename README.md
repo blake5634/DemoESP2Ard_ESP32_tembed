@@ -32,14 +32,17 @@ Here is a linux-oriented step-by-step for getting this to run.
 
 9) T-embed App guide for this code:
 
-1. should see three buttons.  You can move a highlight outline to select one.
-2. Move to `Set Name' and turn the wheel. Names should change in the bottom row.
+1. You should see three buttons.  You can move a highlight outline to select one by turning the T-embed wheel.
+2. Move to `Set Name' and press button in center of wheel.  Now, the outline changes color and when you turn the wheel some names should change in the bottom row.
+3. Press center button again to get back to icon selection.
 5. Turn the wheel until "HH:MM" is selected in a red outline.
-7. Press the button - the outline turns green
+7. Press the button - the outline turns green and you are in the "HH:MM" button.
 9. Turn the wheel and the time changes from 06:30 as you turn the wheel
 11. Press the button again and you go back to red outline for button select.
 
-#### THIS IS WHEN THE SERIAL DATA IS SENT OUT ON YOUR PORT (the new time value is sent)
+#### THIS IS WHEN THE SERIAL DATA IS SENT OUT ON YOUR PORT (the new time value is sent in a single packet)
+
+12.  Observe data received by the Arduino on your laptop through USB via the Serial Monitor.
 
 ##### Suggested hardware setup (works for me).
 
