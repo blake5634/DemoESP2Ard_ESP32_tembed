@@ -58,15 +58,13 @@ int EA_write(){
 #include "driver/uart.h"
 #include "soc/uart_struct.h"
 
-#define PIN_RX 16
-#define PIN_TX 17
 #define BUF_SIZE (int) (ESP32Ard_max_packet_size * 2)
 
 QueueHandle_t uart_queue; // RTOS queue for UART
 
 uart_config_t* uartConfig;   //  keep config around
-int pin_rcv = PIN_RX;
-int pin_tx  = PIN_TX;
+int pin_rcv = ESP_PIN_RX;
+int pin_tx  = ESP_PIN_TX;
 
 
 // ESP32_HW_SERIAL

@@ -51,8 +51,8 @@
 //
 //  >>> ESP32, configure serial params here
 //
-#define ESP_PIN_RX             2
-#define ESP_PIN_TX             3
+#define ESP_PIN_RX              16  // Receive data pin on ESP32
+#define ESP_PIN_TX              17
 #define ESP_UART_NUM    UART_NUM_2  //UART_NUM_2 from driver/uart.h
 
 #ifdef ARDUINO_PLATFORM
@@ -77,6 +77,7 @@
 #include "driver/uart.h"
 
 #define ESP32_HW_SERIAL
+
 
 #define TAG "ESP2Ard message:"  // used for logging
 
