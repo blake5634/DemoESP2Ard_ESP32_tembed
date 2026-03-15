@@ -1,5 +1,5 @@
 # DemoEsp2Ard_ESP32_tembed
-
+## 15-Mar-26: Now builds with IDF v5.4.2 (lots of tweaks needed)
 [Esp2Ard](https://github.com/blake5634/ESP2Ard) is a related package that supports serial communication between ESP32 and Arduino.
 
 [DemoEsp2Ard_ESP32_tembed](https://github.com/blake5634/DemoESP2Ard_ESP32_tembed) (this repo) is a demo of ESP2Ard which has been developed for the [Lilygo T-embed](https://www.lilygo.cc/products/t-embed) ESP32-based user I/O kit. I'm aiming for a nice way to add a UI for configuring an Arduino app without reflashing.
