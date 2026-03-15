@@ -84,9 +84,14 @@ lv_disp_t *tembed_lvgl_init(tembed_t tembed) {
 
     // alloc draw buffers used by LVGL
     // it's recommended to choose the size of the draw buffer(s) to be at least 1/10 screen sized
-    lv_color_t *buf1 = heap_caps_malloc(TEMBED_LCD_H_RES * 20 * sizeof(lv_color_t), MALLOC_CAP_DMA);
+    /*
+     * change by Claude for up to date IDF compat.   15-Mar-26
+     */
+    lv_color_t *buf1 = heap_caps_malloc(TEMBED_LCD_H_RES * 20 * sizeof(lv_color_t), MALLOC_CAP_DMA | MALLOC_CAP_INTERNAL);
+    lv_color_t *buf2 = heap_caps_malloc(TEMBED_LCD_H_RES * 20 * sizeof(lv_color_t), MALLOC_CAP_DMA | MALLOC_CAP_INTERNAL);
+    // lv_color_t *buf1 = heap_caps_malloc(TEMBED_LCD_H_RES * 20 * sizeof(lv_color_t), MALLOC_CAP_DMA);
     assert(buf1);
-    lv_color_t *buf2 = heap_caps_malloc(TEMBED_LCD_H_RES * 20 * sizeof(lv_color_t), MALLOC_CAP_DMA);
+    // lv_color_t *buf2 = heap_caps_malloc(TEMBED_LCD_H_RES * 20 * sizeof(lv_color_t), MALLOC_CAP_DMA);
     assert(buf2);
     // initialize LVGL draw buffers
     lv_disp_draw_buf_init(&disp_buf, buf1, buf2, TEMBED_LCD_H_RES * 20);

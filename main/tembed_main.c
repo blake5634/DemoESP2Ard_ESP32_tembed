@@ -92,11 +92,15 @@ void leds(tembed_t tembed) {
 // styles we need to have globally and initializers for them
 lv_style_t l_style;
 
+#define TWIDTH  80
+#define THEIGHT 45
+
 lv_style_t setup_l_style(){
     lv_style_t tstyle;
     lv_style_init(&tstyle);
-    lv_style_set_width(&tstyle, 75);
-    lv_style_set_height(&tstyle, 40);
+    lv_style_set_width(&tstyle, TWIDTH);
+    lv_style_set_height(&tstyle, THEIGHT);
+    lv_style_set_text_font(&tstyle, &lv_font_montserrat_16);  // claude
     lv_style_set_text_color(&tstyle, lv_color_white());
     lv_style_set_text_align(&tstyle, LV_TEXT_ALIGN_CENTER);
     lv_style_set_bg_color(&tstyle, lv_palette_main(LV_PALETTE_BLUE));
@@ -111,12 +115,13 @@ lv_style_t setup_l_styleOutlined(int outlineColor_hx){
     /// Add outline
     lv_style_t tstyle;
     lv_style_init(&tstyle);
-    lv_style_set_width(&tstyle, 75);
-    lv_style_set_height(&tstyle, 40);
+    lv_style_set_width(&tstyle, TWIDTH);
+    lv_style_set_height(&tstyle, THEIGHT);
     lv_style_set_outline_width(&tstyle,  2);
     lv_style_set_outline_color(&tstyle, lv_color_hex(outlineColor_hx));
     lv_style_set_radius(&tstyle, 4);
     lv_style_set_outline_pad(&tstyle, 8);
+    lv_style_set_text_font(&tstyle, &lv_font_montserrat_16);  // claude
     return tstyle;
 }
 
@@ -291,6 +296,7 @@ void lvgl_demo_ui(lv_disp_t *disp) {
     label = lv_label_create(cont_row);
     lv_label_set_text_static(label, "Start Time");
     lv_obj_add_style(label, &l_style, LV_PART_MAIN);
+    lv_obj_set_style_text_font(label, &lv_font_montserrat_28, LV_PART_MAIN);  // add here
     lv_obj_set_style_bg_color(label, lv_color_hex(0xff0000), LV_PART_MAIN);
     lv_obj_center(label);
     foci_buttons[0] = label;
@@ -298,6 +304,7 @@ void lvgl_demo_ui(lv_disp_t *disp) {
     label = lv_label_create(cont_row);
     lv_label_set_text_static(label, "HH:MM");
     lv_obj_add_style(label, &l_style, LV_PART_MAIN);
+    lv_obj_set_style_text_font(label, &lv_font_montserrat_28, LV_PART_MAIN);  // add here
     lv_obj_set_style_bg_color(label, lv_palette_main(LV_PALETTE_GREEN), LV_PART_MAIN);
     lv_obj_center(label);
     foci_buttons[1] = label;
@@ -319,6 +326,7 @@ void lvgl_demo_ui(lv_disp_t *disp) {
     lv_obj_set_size(label, 150, 20);
     lv_label_set_text_static(label, "Set Name");
     lv_obj_add_style(label, &l_style, LV_PART_MAIN);
+    lv_obj_set_style_text_font(label, &lv_font_montserrat_28, LV_PART_MAIN);  // add here
     lv_obj_set_style_bg_color(label, lv_color_hex(0xff0000), LV_PART_MAIN);
     lv_obj_center(label);
     foci_buttons[2] = label;

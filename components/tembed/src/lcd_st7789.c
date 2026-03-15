@@ -70,6 +70,7 @@ esp_lcd_panel_handle_t tembed_init_lcd_st7789(esp_lcd_panel_io_color_trans_done_
         .reset_gpio_num = 9,
         .flags.reset_active_high = 0,
         .rgb_endian = LCD_RGB_ENDIAN_RGB,
+        // .rgb_endian = LCD_RGB_ENDIAN_BGR,
         .bits_per_pixel = 16,
     };
 
@@ -95,8 +96,8 @@ esp_lcd_panel_handle_t tembed_init_lcd_st7789(esp_lcd_panel_io_color_trans_done_
         {ST7789_PWCTRL1, {0XA4, 0XA1}, 2},
         {0xD6, {0XA1}, 1},
         {ST7789_PVGAMCTRL, {0XF0, 0X05, 0X0A, 0X06, 0X06, 0X03, 0X2B, 0X32, 0X43, 0X36, 0X11, 0X10, 0X2B, 0X32}, 14},
-        {ST7789_NVGAMCTRL, {0XF0, 0X08, 0X0C, 0X0B, 0X09, 0X24, 0X2B, 0X22, 0X43, 0X38, 0X15, 0X16, 0X2F, 0X37}, 14},
-        {LCD_CMD_INVON,{0},0}
+        {ST7789_NVGAMCTRL, {0XF0, 0X08, 0X0C, 0X0B, 0X09, 0X24, 0X2B, 0X22, 0X43, 0X38, 0X15, 0X16, 0X2F, 0X37}, 14} //,
+        //{LCD_CMD_INVON,{0},0}
         // CAS and RAS are set by the ESP_lcd driver
     };
 
@@ -118,6 +119,8 @@ esp_lcd_panel_handle_t tembed_init_lcd_st7789(esp_lcd_panel_io_color_trans_done_
     // Swap coordinates around to match the display
     esp_lcd_panel_swap_xy(panel_handle, true);
     esp_lcd_panel_mirror(panel_handle, true, false);
+    // CLaude
+    esp_lcd_panel_invert_color(panel_handle, true);
 
     // Draw the LILLYGO Logo as a test and whilst we're initializing the rest of the app
     esp_lcd_panel_draw_bitmap(panel_handle, 0, 0, 320, 170, img_logo);
